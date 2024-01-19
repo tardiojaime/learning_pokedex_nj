@@ -1,0 +1,7 @@
+show dbs
+use nest-pokemon
+show collections
+db.pokemons.all()
+db.pokemons.find()
+db.pokemons.deleteOne({no: 1})
+db.pokemons.find()
