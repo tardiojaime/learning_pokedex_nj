@@ -10,7 +10,10 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
+# mongo
+/mongo
+.env
+.env.prod
 # OS
 .DS_Store
 

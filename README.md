@@ -42,7 +42,7 @@ npm i -g @nest/cli
 ```
 docker-compose up -d
 ```
-
+4. Clonar el archivo ```.env.templete``` y renombre a ```.env``` y actualize sus variables
 ## Creamos pipes
 
 lo recomendado esque este dentro de la carpeta common/pipes
@@ -95,3 +95,38 @@ pero esperamos que nuestro parametros vengan en int o number
   enableImplicitConversion: true,
 },
 ```
+## Variables de entorno 
+Para utiliar variables de entorno  en nestjs, debemos utilizar el paquete <br>
+```bash
+# en node ya se tiene variables de entorno en process.env
+console.log(process.env)
+# en la anterior no podremos visualizar nuestras variables de entorno 
+# de nosotros que tenemos en .env
+# Para hacerlo necesitamos instalar el siguiente paquete
+yarn add @nestjs/config
+# Despues de la instalacion, importamos la siguiente configuracion en el modulo principal
+import {EnvConfiguration} from './config/app.config';
+ConfigModule.forRoot({
+  load: [EnvConfiguration],
+}),
+# de @nestjs/config
+  constructor() {
+    console.log(process.env);
+  }
+```
+## Utilizar MONGODB ATLAS
+Conectarse a la base de datos de atlasian
+```
+mongo "mongodb+srv://<usuario>:<contraseña>@<cluster>/<basededatos>?retryWrites=true&w=majority"
+```
+## Dockerizar proyecto
+Comandos utiles
+```bash
+# PASOS DE CONSTRUCCION A PARTIR DEL DOCKERFILE Y DOCKER_COMPOSE.JSON
+#------------------------ Construccion ------------------------------
+# -f indica el archivo que utilizar (si != docker-compose.yml)
+# --env-file el archivo de variables de entorno (!=.env)
+# up levantar y --build ->construir
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build
+```
+  1.  docker compose -f docker-compose.prod.yml - Indica otro archivo diferente a d-c.yml

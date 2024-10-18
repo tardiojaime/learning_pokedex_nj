@@ -1,0 +1,27 @@
+FROM node:20.9.0-alpine3.18
+
+# set working directory
+RUN mkdir -p /var/www/pokedex
+WORKDIR /var/www/pokedex
+
+# Copiar el direcctoria y su contenido
+# COPY .(todo) destino
+COPY . ./var/www/pokedex
+COPY package.json tsconfig.json tsconfig.build.json /var/www/pokedex/
+# instalacion de paquete de produccion
+RUN yarn install --prod
+RUN yarn build
+
+# Dar Permisos para ejecutar la aplicacion 
+# crear un nuevo usuario sin cpntraseña
+RUN adduser --disabled-password pokeuser
+# dar acceso al archivo pokedex
+RUN chown -R pokeuser:pokeuser /var/www/pokedex
+# usamos al usuario
+USER pokeuser
+# Limpiar el cache
+RUN yarn cache clean --force
+
+EXPOSE 3000
+
+CMD ["yarn", "start"]

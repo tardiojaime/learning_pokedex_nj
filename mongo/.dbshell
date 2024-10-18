@@ -5,3 +5,4 @@ db.pokemons.all()
 db.pokemons.find()
 db.pokemons.deleteOne({no: 1})
 db.pokemons.find()
+show dbs;
